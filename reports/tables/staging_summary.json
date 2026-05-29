@@ -1,0 +1,16 @@
+{
+  "sicr_threshold_source": "calibration predicted_probability quantile",
+  "calibration_quantile": 0.95,
+  "sicr_threshold": 0.271186,
+  "test_rows": 13440,
+  "test_stage_signal_counts": {
+    "Stage 1": 11545,
+    "Stage 2": 1895
+  },
+  "test_sicr_trigger_count": 1895,
+  "test_sicr_trigger_rate": 0.141,
+  "test_positive_rows": 835,
+  "test_positive_capture_rate": 0.8874,
+  "test_sicr_precision": 0.391,
+  "framing": "The model trigger is a quantitative SICR review signal. It would feed a governed IFRS 9 staging process rather than replace policy rules."
+}

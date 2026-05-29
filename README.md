@@ -153,6 +153,30 @@ The ranking performance is strong because the synthetic data intentionally embed
 
 ![Model calibration](reports/figures/model_calibration.png)
 
+## IFRS 9 / SICR Framing
+
+Phase 6 maps the model output into a simplified Stage 2 review signal:
+
+```bash
+python -m src.staging
+```
+
+Framing:
+
+- Stage 1: performing with no model SICR trigger.
+- Stage 2: `30+ DPD` proxy or model score above the SICR review threshold.
+- Stage 3: `90+ DPD` credit-impaired proxy.
+- The model threshold is the 95th percentile of calibrated scores in the calibration window, not selected on the test labels.
+
+Latest out-of-time SICR signal summary:
+
+- SICR threshold: `0.271186`
+- Test rows flagged for Stage 2 review: `1,895` / `14.10%`
+- True six-month deteriorations captured by the trigger: `88.74%`
+- SICR trigger precision: `39.10%`
+
+This is intentionally described as a review signal. Real IFRS 9 staging is governed, multi-factor, and policy-specific; the model would support that process rather than replace it.
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
@@ -164,6 +188,7 @@ python -m src.eda
 python -m src.target
 python -m src.features
 python -m src.model
+python -m src.staging
 ```
 
 ## Caveats
