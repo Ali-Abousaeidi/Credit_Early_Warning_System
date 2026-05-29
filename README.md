@@ -122,6 +122,37 @@ Latest feature summary:
 
 Core trend families include utilisation slope, payment-to-due slope, cash-buffer change, purchase-volatility, missed-minimum-payment counts, and prior delinquency recency.
 
+## Early-Warning Model
+
+Phase 5 trains and evaluates the calibrated model:
+
+```bash
+python -m src.model
+```
+
+Method:
+
+- Model: XGBoost gradient-boosted classifier.
+- Imbalance handling: positive-class weight from the training window.
+- Calibration: isotonic regression fitted only on the calibration window.
+- Split: train on `2020-01-31` to `2021-06-30`, calibrate on `2021-07-31` to `2021-12-31`, test on `2022-01-31` to `2022-06-30`.
+
+Out-of-time test result:
+
+- Test rows: `13,440`
+- Test positives: `835`
+- Test base rate: `6.21%`
+- ROC-AUC: `0.9597`
+- PR-AUC: `0.8107`
+- Brier score: `0.0350`
+- Log loss: `0.1450`
+
+The ranking performance is strong because the synthetic data intentionally embeds visible pre-delinquency behavioural drift. The highest score decile still overpredicts observed deterioration, so the probabilities should be treated as calibrated risk scores rather than a governed IFRS 9 probability-of-default estimate.
+
+![Model precision-recall](reports/figures/model_precision_recall.png)
+
+![Model calibration](reports/figures/model_calibration.png)
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
@@ -132,6 +163,7 @@ python -m src.data_panel
 python -m src.eda
 python -m src.target
 python -m src.features
+python -m src.model
 ```
 
 ## Caveats

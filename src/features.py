@@ -188,6 +188,7 @@ def feature_columns(feature_frame: pd.DataFrame) -> list[str]:
             "month_index",
             "days_past_due",
             "is_30_plus_dpd",
+            "split",
         }
     )
     return [

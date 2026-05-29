@@ -1,0 +1,44 @@
+{
+  "config": {
+    "train_end": "2021-06-30",
+    "calibration_end": "2021-12-31",
+    "seed": 42,
+    "n_estimators": 250,
+    "max_depth": 3,
+    "learning_rate": 0.04,
+    "subsample": 0.85,
+    "colsample_bytree": 0.85
+  },
+  "target_column": "target_deterioration_6m",
+  "n_model_features": 70,
+  "split_summary": {
+    "train": {
+      "rows": 44472,
+      "positive_rows": 999,
+      "positive_rate": 0.0225,
+      "month_min": "2020-01-31",
+      "month_max": "2021-06-30"
+    },
+    "calibration": {
+      "rows": 14092,
+      "positive_rows": 724,
+      "positive_rate": 0.0514,
+      "month_min": "2021-07-31",
+      "month_max": "2021-12-31"
+    },
+    "test": {
+      "rows": 13440,
+      "positive_rows": 835,
+      "positive_rate": 0.0621,
+      "month_min": "2022-01-31",
+      "month_max": "2022-06-30"
+    }
+  },
+  "test_metrics": {
+    "roc_auc": 0.9597,
+    "pr_auc": 0.8107,
+    "brier_score": 0.035,
+    "log_loss": 0.145,
+    "base_rate": 0.0621
+  }
+}

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from src.features import build_feature_matrix, build_point_in_time_features
+from src.features import build_feature_matrix, build_point_in_time_features, feature_columns
 
 
 def _toy_panel() -> pd.DataFrame:
@@ -74,3 +74,21 @@ def test_feature_matrix_preserves_target_without_using_future_columns() -> None:
     assert "target_deterioration_6m" in feature_matrix.columns
     assert not any(column.startswith("future_") for column in feature_matrix.columns)
     assert len(feature_matrix) == len(target_population)
+
+
+def test_feature_columns_exclude_target_and_timing_metadata() -> None:
+    panel = _toy_panel()
+    target_population = panel[["account_id", "observation_month", "origination_month"]].copy()
+    target_population["target_deterioration_6m"] = [0, 1, 0, 0]
+    target_population["months_to_deterioration"] = [pd.NA, 2, pd.NA, pd.NA]
+    target_population["first_deterioration_month"] = pd.NaT
+    target_population["has_full_outcome_window"] = True
+    target_population["eligible_at_observation"] = True
+
+    columns = feature_columns(build_feature_matrix(panel, target_population))
+
+    assert "target_deterioration_6m" not in columns
+    assert "months_to_deterioration" not in columns
+    assert "first_deterioration_month" not in columns
+    assert "month_index" not in columns
+    assert "days_past_due" not in columns
