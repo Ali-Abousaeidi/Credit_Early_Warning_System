@@ -32,12 +32,32 @@ The default data approach is a reproducible synthetic account-month panel with d
 5. IFRS 9 / SICR mapping.
 6. Ranked watchlist, lead-time analysis, and reason codes.
 
+## Synthetic Panel
+
+Phase 1 builds the monitoring panel with:
+
+```bash
+python -m src.data_panel
+```
+
+Latest generated panel summary:
+
+- Rows: `90,000`
+- Accounts: `2,500`
+- Observation window: `2020-01-31` to `2022-12-31`
+- Months per account: `36`
+- Accounts ever reaching `30+ DPD`: `449` (`17.96%`)
+- Status rows: `84,689 current`, `596 dpd_30`, `413 dpd_60`, `355 dpd_90`, `3,947 default`
+
+The generated CSV and metadata are written under `data/panel/`, which is git-ignored. Re-run the command above to recreate them from seed `42`.
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
 
 ```bash
 pip install -r requirements.txt
+python -m src.data_panel
 ```
 
 ## Caveats
