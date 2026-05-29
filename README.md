@@ -1,0 +1,47 @@
+# Credit Early-Warning System
+
+Predicts which currently-performing loans are sliding toward deterioration before they become delinquent, using behavioural trend signals on an account-month panel. The output is a ranked watchlist with lead-time analysis and officer-facing reason codes, framed around IFRS 9 staging / SICR.
+
+## Headline Result
+
+Not yet produced. Metrics in this README will be filled only after running the pipeline end to end.
+
+Target headline:
+
+> Flags deteriorating accounts a median of `[N]` months before they hit 30+ DPD, capturing `[x]%` of true deteriorations at precision@`[k] = [y]%`.
+
+## Phase 0 Scope
+
+This project is an early-warning monitoring model, not an origination scorecard.
+
+- Observation cadence: monthly account snapshots.
+- Eligible population: accounts that are currently performing at observation month `t`.
+- Warning horizon: the six months after observation, `t+1` through `t+6`.
+- Deterioration event: first migration to `30+ days past due` or worse during the horizon.
+- Timing wall: all features must use information available up to and including month `t`; labels must use only months after `t`.
+- IFRS 9 framing: the model is treated as one data-driven SICR signal that could feed a governed Stage 1 to Stage 2 review. It is not a complete IFRS 9 staging policy.
+
+The default data approach is a reproducible synthetic account-month panel with documented deterioration paths. This avoids fabricating results while keeping the project public, runnable, and point-in-time auditable.
+
+## How It Will Work
+
+1. Account-month monitoring panel.
+2. Forward-looking deterioration target with strict point-in-time discipline.
+3. Behavioural trend features: utilisation momentum, payment behaviour, volatility, and delinquency onset signals.
+4. Calibrated early-warning model evaluated on later observation months.
+5. IFRS 9 / SICR mapping.
+6. Ranked watchlist, lead-time analysis, and reason codes.
+
+## How To Run
+
+The full one-command pipeline will be added as the implementation phases are completed.
+
+```bash
+pip install -r requirements.txt
+```
+
+## Caveats
+
+- The initial implementation will use synthetic data, clearly labelled as synthetic.
+- Synthetic data is useful for demonstrating timing discipline and modelling workflow, but it cannot validate real portfolio performance.
+- Real IFRS 9 staging is governed, multi-factor, and policy-specific. This project models one quantitative early-warning signal that would support, not replace, that process.
