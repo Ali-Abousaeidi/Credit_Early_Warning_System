@@ -223,10 +223,16 @@ The reason-code table is written to `reports/tables/watchlist_reason_codes.csv`.
 
 ## How To Run
 
-The full one-command pipeline will be added as the implementation phases are completed.
+Recommended one-command run:
 
 ```bash
 pip install -r requirements.txt
+python -m src.pipeline
+```
+
+Individual phase commands:
+
+```bash
 python -m src.data_panel
 python -m src.eda
 python -m src.target
@@ -235,6 +241,12 @@ python -m src.model
 python -m src.staging
 python -m src.watchlist
 python -m src.explain
+```
+
+Run tests:
+
+```bash
+python -m pytest tests
 ```
 
 ## Caveats
