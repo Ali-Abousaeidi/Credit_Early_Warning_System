@@ -97,6 +97,31 @@ Latest target summary:
 - Labelled observation window: `2020-01-31` to `2022-06-30`
 - Median months to deterioration among positive rows: `4.0`
 
+## Behavioural Trend Features
+
+Phase 4 creates the point-in-time feature matrix:
+
+```bash
+python -m src.features
+```
+
+Feature timing convention:
+
+- Rolling windows use account history up to and including observation month `t`.
+- One-month changes compare `t` against `t-1`.
+- Prior-delinquency history uses only months before `t`.
+- Forward target fields are preserved as labels but are excluded from `reports/tables/feature_columns.txt`.
+
+Latest feature summary:
+
+- Feature matrix rows: `72,004`
+- Accounts: `2,500`
+- Model feature columns: `70`
+- Behavioural trend/window feature columns: `33`
+- Positive target rate: `3.55%`
+
+Core trend families include utilisation slope, payment-to-due slope, cash-buffer change, purchase-volatility, missed-minimum-payment counts, and prior delinquency recency.
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
@@ -106,6 +131,7 @@ pip install -r requirements.txt
 python -m src.data_panel
 python -m src.eda
 python -m src.target
+python -m src.features
 ```
 
 ## Caveats

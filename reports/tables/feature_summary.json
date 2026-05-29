@@ -1,0 +1,24 @@
+{
+  "n_rows": 72004,
+  "n_accounts": 2500,
+  "n_feature_columns": 70,
+  "n_trend_feature_columns": 33,
+  "positive_rows": 2558,
+  "positive_rate": 0.0355,
+  "observation_month_min": "2020-01-31",
+  "observation_month_max": "2022-06-30",
+  "sample_trend_features": [
+    "utilization_change_1m",
+    "utilization_std_3m",
+    "utilization_slope_3m",
+    "utilization_std_6m",
+    "utilization_slope_6m",
+    "payment_to_due_ratio_change_1m",
+    "payment_to_due_ratio_std_3m",
+    "payment_to_due_ratio_slope_3m",
+    "payment_to_due_ratio_std_6m",
+    "payment_to_due_ratio_slope_6m",
+    "cash_buffer_months_change_1m",
+    "cash_buffer_months_std_3m"
+  ]
+}
