@@ -1,0 +1,13 @@
+{
+  "horizon_months": 6,
+  "dpd_threshold": 30,
+  "eligible_rows": 72004,
+  "positive_rows": 2558,
+  "positive_rate": 0.0355,
+  "positive_accounts": 449,
+  "eligible_accounts": 2500,
+  "observation_month_min": "2020-01-31",
+  "observation_month_max": "2022-06-30",
+  "excluded_rows_after_full_horizon_cutoff": 15000,
+  "median_months_to_deterioration_among_positive_rows": 4.0
+}

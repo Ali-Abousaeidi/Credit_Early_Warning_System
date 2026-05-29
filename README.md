@@ -73,6 +73,30 @@ The example trajectory plot shows the intended leading-indicator pattern in the 
 
 ![Example deterioration trajectories](reports/figures/example_deterioration_trajectories.png)
 
+## Early-Warning Target
+
+Phase 3 creates the labelled modelling population:
+
+```bash
+python -m src.target
+```
+
+Timing convention:
+
+- Population: rows where the account is current at observation month `t`.
+- Label window: months `t+1` through `t+6`.
+- Positive label: first migration to `30+ DPD` or worse inside that future window.
+- Exclusion: rows without a complete six-month future window are not used for modelling.
+
+Latest target summary:
+
+- Eligible performing account-month rows: `72,004`
+- Positive six-month deterioration rows: `2,558`
+- Positive rate: `3.55%`
+- Accounts with at least one positive labelled row: `449`
+- Labelled observation window: `2020-01-31` to `2022-06-30`
+- Median months to deterioration among positive rows: `4.0`
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
@@ -81,6 +105,7 @@ The full one-command pipeline will be added as the implementation phases are com
 pip install -r requirements.txt
 python -m src.data_panel
 python -m src.eda
+python -m src.target
 ```
 
 ## Caveats
