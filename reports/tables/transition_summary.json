@@ -1,0 +1,24 @@
+{
+  "n_one_month_transitions": 87500,
+  "performing_to_30_plus_count": 649,
+  "performing_to_30_plus_rate": 0.0079,
+  "current_roll_rate": 0.9921,
+  "dpd_30_cure_rate": 0.1751,
+  "dpd_30_to_worse_rate": 0.62,
+  "n_accounts_with_first_30_plus_dpd": 449,
+  "status_mix": {
+    "current": 0.941,
+    "default": 0.0439,
+    "dpd_30": 0.0066,
+    "dpd_60": 0.0046,
+    "dpd_90": 0.0039
+  },
+  "example_accounts": [
+    "ACC001426",
+    "ACC000355",
+    "ACC001043",
+    "ACC001157",
+    "ACC001601",
+    "ACC000060"
+  ]
+}

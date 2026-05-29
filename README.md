@@ -51,6 +51,28 @@ Latest generated panel summary:
 
 The generated CSV and metadata are written under `data/panel/`, which is git-ignored. Re-run the command above to recreate them from seed `42`.
 
+## Transition Behaviour
+
+Phase 2 calculates one-month state migrations and example deterioration trajectories:
+
+```bash
+python -m src.eda
+```
+
+Latest generated transition summary:
+
+- One-month transitions analysed: `87,500`
+- Current to `30+ DPD` roll rate: `0.79%` per month
+- Current to current persistence: `99.21%`
+- `30 DPD` cure rate to current: `17.51%`
+- `30 DPD` worsening rate to `60+ DPD/default`: `62.00%`
+
+![Transition matrix](reports/figures/transition_matrix.png)
+
+The example trajectory plot shows the intended leading-indicator pattern in the synthetic panel: utilisation tends to rise before the first `30+ DPD` observation, while payment-to-due ratios weaken before delinquency.
+
+![Example deterioration trajectories](reports/figures/example_deterioration_trajectories.png)
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
@@ -58,6 +80,7 @@ The full one-command pipeline will be added as the implementation phases are com
 ```bash
 pip install -r requirements.txt
 python -m src.data_panel
+python -m src.eda
 ```
 
 ## Caveats

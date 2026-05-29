@@ -16,10 +16,6 @@ env/
 # Local data and generated outputs
 data/*
 !data/.gitkeep
-reports/figures/*
-!reports/figures/.gitkeep
-reports/tables/*
-!reports/tables/.gitkeep
 
 # Notebooks
 .ipynb_checkpoints/

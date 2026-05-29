@@ -1,0 +1,6 @@
+performance_status,current,dpd_30,dpd_60,dpd_90,default
+current,81976,455,39,75,80
+dpd_30,100,117,274,65,15
+dpd_60,71,24,75,141,83
+dpd_90,42,0,25,74,192
+default,0,0,0,0,3577
