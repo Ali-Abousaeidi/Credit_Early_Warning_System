@@ -1,0 +1,30 @@
+{
+  "split": "test",
+  "top_k_per_month": 100,
+  "n_watchlist_rows": 600,
+  "n_watchlist_months": 6,
+  "watchlist_positive_rows": 552,
+  "precision_at_k_overall": 0.92,
+  "precision_at_k_monthly_mean": 0.92,
+  "monthly_positive_hits": {
+    "2022-01-31": 96,
+    "2022-02-28": 94,
+    "2022-03-31": 91,
+    "2022-04-30": 94,
+    "2022-05-31": 90,
+    "2022-06-30": 87
+  },
+  "positive_accounts_in_split": 258,
+  "positive_accounts_flagged": 203,
+  "account_capture_rate": 0.7868,
+  "median_lead_time_months": 4.0,
+  "mean_lead_time_months": 3.48,
+  "lead_time_distribution": {
+    "1": 25,
+    "2": 24,
+    "3": 35,
+    "4": 74,
+    "5": 37,
+    "6": 8
+  }
+}

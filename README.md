@@ -4,11 +4,9 @@ Predicts which currently-performing loans are sliding toward deterioration befor
 
 ## Headline Result
 
-Not yet produced. Metrics in this README will be filled only after running the pipeline end to end.
+Flags deteriorating accounts a median of `4.0` months before they hit `30+ DPD`, capturing `78.68%` of true deteriorating accounts in the out-of-time test window at monthly precision@`100 = 92.00%`.
 
-Target headline:
-
-> Flags deteriorating accounts a median of `[N]` months before they hit 30+ DPD, capturing `[x]%` of true deteriorations at precision@`[k] = [y]%`.
+![Lead time](reports/figures/lead_time.png)
 
 ## Phase 0 Scope
 
@@ -177,6 +175,30 @@ Latest out-of-time SICR signal summary:
 
 This is intentionally described as a review signal. Real IFRS 9 staging is governed, multi-factor, and policy-specific; the model would support that process rather than replace it.
 
+## Watchlist & Lead Time
+
+Phase 7 produces the ranked officer watchlist and lead-time analysis:
+
+```bash
+python -m src.watchlist
+```
+
+Evaluation setup:
+
+- Period: out-of-time test split only, `2022-01-31` to `2022-06-30`.
+- Review capacity: top `100` accounts per month.
+- Hit definition: account is current at observation month `t` and reaches `30+ DPD` within the next six months.
+- Lead time: months between first watchlist flag and first future `30+ DPD` observation.
+
+Latest watchlist result:
+
+- Watchlist rows: `600`
+- Watchlist positive rows: `552`
+- Monthly precision@100: `92.00%`
+- Deteriorating test accounts captured: `203` of `258` (`78.68%`)
+- Median lead time: `4.0` months
+- Mean lead time: `3.48` months
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
@@ -189,6 +211,7 @@ python -m src.target
 python -m src.features
 python -m src.model
 python -m src.staging
+python -m src.watchlist
 ```
 
 ## Caveats
