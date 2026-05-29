@@ -199,6 +199,28 @@ Latest watchlist result:
 - Median lead time: `4.0` months
 - Mean lead time: `3.48` months
 
+## Reason Codes
+
+Phase 8 adds SHAP reason codes to every watchlist row:
+
+```bash
+python -m src.explain
+```
+
+Latest explanation summary:
+
+- Watchlist rows explained: `600`
+- Top primary SHAP reason features:
+  - `cash_buffer_months`: `388`
+  - `utilization_std_3m`: `134`
+  - `utilization_change_1m`: `54`
+  - `prior_30_plus_count_12m`: `23`
+  - `payment_to_balance`: `1`
+
+The reason-code table is written to `reports/tables/watchlist_reason_codes.csv`. These reasons are model explanations, not causal claims.
+
+![Reason feature frequency](reports/figures/reason_feature_frequency.png)
+
 ## How To Run
 
 The full one-command pipeline will be added as the implementation phases are completed.
@@ -212,6 +234,7 @@ python -m src.features
 python -m src.model
 python -m src.staging
 python -m src.watchlist
+python -m src.explain
 ```
 
 ## Caveats

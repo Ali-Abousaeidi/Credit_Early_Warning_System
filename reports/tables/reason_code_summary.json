@@ -1,0 +1,11 @@
+{
+  "n_watchlist_rows_explained": 600,
+  "average_predicted_probability": 0.9954,
+  "top_primary_reason_features": {
+    "cash_buffer_months": 388,
+    "utilization_std_3m": 134,
+    "utilization_change_1m": 54,
+    "prior_30_plus_count_12m": 23,
+    "payment_to_balance": 1
+  }
+}
