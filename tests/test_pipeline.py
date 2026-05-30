@@ -13,4 +13,5 @@ def test_pipeline_order_respects_data_dependencies() -> None:
         "src.staging",
         "src.watchlist",
         "src.explain",
+        "src.audit",
     ]

@@ -14,6 +14,7 @@ PIPELINE_MODULES = [
     "src.staging",
     "src.watchlist",
     "src.explain",
+    "src.audit",
 ]
 
 

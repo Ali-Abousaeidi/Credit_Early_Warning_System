@@ -8,6 +8,13 @@ Flags deteriorating accounts a median of `4.0` months before they hit `30+ DPD`,
 
 ![Lead time](reports/figures/lead_time.png)
 
+## Repository Guide
+
+- [DATA_CARD.md](DATA_CARD.md): synthetic data generation, timing convention, and limitations.
+- [MODEL_CARD.md](MODEL_CARD.md): target, features, validation, watchlist use, and caveats.
+- `reports/tables/methodology_audit.json`: automated checks for timing-wall and reproducibility risks.
+- `reports/figures/model_feature_importance.png`: global model drivers by XGBoost gain.
+
 ## Phase 0 Scope
 
 This project is an early-warning monitoring model, not an origination scorecard.
@@ -151,6 +158,8 @@ The ranking performance is strong because the synthetic data intentionally embed
 
 ![Model calibration](reports/figures/model_calibration.png)
 
+![Model feature importance](reports/figures/model_feature_importance.png)
+
 ## IFRS 9 / SICR Framing
 
 Phase 6 maps the model output into a simplified Stage 2 review signal:
@@ -221,6 +230,24 @@ The reason-code table is written to `reports/tables/watchlist_reason_codes.csv`.
 
 ![Reason feature frequency](reports/figures/reason_feature_frequency.png)
 
+## Methodology Audit
+
+The final pipeline step runs:
+
+```bash
+python -m src.audit
+```
+
+The audit checks:
+
+- Raw panel has no future/target columns.
+- Model feature list excludes forward target and timing metadata.
+- Train, calibration, and test periods are strictly ordered.
+- Target rows are current at observation and have a full six-month outcome window.
+- Watchlist rows respect the stated top-100 monthly review capacity.
+
+Latest audit status: `pass`.
+
 ## How To Run
 
 Recommended one-command run:
@@ -241,6 +268,7 @@ python -m src.model
 python -m src.staging
 python -m src.watchlist
 python -m src.explain
+python -m src.audit
 ```
 
 Run tests:

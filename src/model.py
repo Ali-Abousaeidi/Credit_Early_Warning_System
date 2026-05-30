@@ -242,11 +242,50 @@ def save_calibration_plot(scored_test: pd.DataFrame, figures_dir: Path) -> None:
     plt.close()
 
 
+def save_feature_importance_plot(
+    model: XGBClassifier,
+    columns: list[str],
+    figures_dir: Path,
+    tables_dir: Path,
+    top_n: int = 20,
+) -> None:
+    """Save global model feature importance by XGBoost gain."""
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    tables_dir.mkdir(parents=True, exist_ok=True)
+    booster = model.get_booster()
+    raw_scores = booster.get_score(importance_type="gain")
+    importance = pd.DataFrame(
+        {
+            "feature": columns,
+            "gain": [
+                float(raw_scores.get(feature, raw_scores.get(f"f{idx}", 0.0)))
+                for idx, feature in enumerate(columns)
+            ],
+        }
+    ).sort_values("gain", ascending=False)
+    total_gain = importance["gain"].sum()
+    importance["gain_share"] = (
+        importance["gain"] / total_gain if total_gain else 0.0
+    )
+    importance.to_csv(tables_dir / "model_feature_importance.csv", index=False)
+
+    plot_data = importance.head(top_n).sort_values("gain")
+    plt.figure(figsize=(8, 6))
+    plt.barh(plot_data["feature"], plot_data["gain"], color="#176D8C")
+    plt.xlabel("XGBoost gain")
+    plt.ylabel("Feature")
+    plt.title("Top Global Model Features")
+    plt.tight_layout()
+    plt.savefig(figures_dir / "model_feature_importance.png", dpi=160)
+    plt.close()
+
+
 def write_model_outputs(
     model: XGBClassifier,
     calibrator: IsotonicRegression,
     scored: pd.DataFrame,
     summary: dict[str, object],
+    columns: list[str],
     output_dir: Path,
     scores_path: Path,
     reports_dir: Path,
@@ -280,9 +319,10 @@ def write_model_outputs(
     scored_test = scored.loc[scored["split"].eq("test")]
     save_precision_recall_plot(scored_test, figures_dir)
     save_calibration_plot(scored_test, figures_dir)
+    save_feature_importance_plot(model, columns, figures_dir, reports_dir)
 
 
-def run_training(feature_matrix: pd.DataFrame, config: ModelConfig) -> tuple[pd.DataFrame, dict[str, object], XGBClassifier, IsotonicRegression]:
+def run_training(feature_matrix: pd.DataFrame, config: ModelConfig) -> tuple[pd.DataFrame, dict[str, object], XGBClassifier, IsotonicRegression, list[str]]:
     """Train, calibrate, score, and summarize the early-warning model."""
     split_frame = add_time_split(feature_matrix, config)
     columns = feature_columns(split_frame)
@@ -292,7 +332,7 @@ def run_training(feature_matrix: pd.DataFrame, config: ModelConfig) -> tuple[pd.
     calibrator = fit_isotonic_calibrator(model, calibration_frame, columns)
     scored = score_frame(model, calibrator, split_frame, columns)
     summary = summarize_model_run(scored, columns, config)
-    return scored, summary, model, calibrator
+    return scored, summary, model, calibrator, columns
 
 
 def main() -> None:
@@ -315,12 +355,13 @@ def main() -> None:
 
     feature_matrix = load_feature_matrix(args.features)
     config = ModelConfig()
-    scored, summary, model, calibrator = run_training(feature_matrix, config)
+    scored, summary, model, calibrator, columns = run_training(feature_matrix, config)
     write_model_outputs(
         model=model,
         calibrator=calibrator,
         scored=scored,
         summary=summary,
+        columns=columns,
         output_dir=args.output_dir,
         scores_path=args.scores_output,
         reports_dir=args.reports_dir,

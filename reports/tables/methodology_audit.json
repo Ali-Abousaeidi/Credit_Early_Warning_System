@@ -1,0 +1,55 @@
+{
+  "overall_status": "pass",
+  "checks": {
+    "raw_panel": {
+      "status": "pass",
+      "message": "Raw panel contains one row per account-month and no future/target columns.",
+      "details": {
+        "rows": 90000,
+        "accounts": 2500
+      }
+    },
+    "feature_columns": {
+      "status": "pass",
+      "message": "Model feature list excludes forward target and timing metadata.",
+      "details": {
+        "n_features": 70
+      }
+    },
+    "time_split": {
+      "status": "pass",
+      "message": "Train, calibration, and test windows are strictly ordered by time.",
+      "details": {
+        "calibration": {
+          "min": "2021-07-31",
+          "max": "2021-12-31"
+        },
+        "test": {
+          "min": "2022-01-31",
+          "max": "2022-06-30"
+        },
+        "train": {
+          "min": "2020-01-31",
+          "max": "2021-06-30"
+        }
+      }
+    },
+    "target_window": {
+      "status": "pass",
+      "message": "Target population uses current rows with complete forward outcome windows.",
+      "details": {
+        "rows": 72004,
+        "positive_rate": 0.0355
+      }
+    },
+    "watchlist_capacity": {
+      "status": "pass",
+      "message": "Watchlist respects monthly top-k review capacity.",
+      "details": {
+        "top_k_per_month": 100,
+        "months": 6,
+        "rows": 600
+      }
+    }
+  }
+}
