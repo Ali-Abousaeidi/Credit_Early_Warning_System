@@ -341,6 +341,10 @@ Dashboard:
 streamlit run dashboard/app.py
 ```
 
+Static HTML dashboard:
+
+Open `dashboard/index.html` in a browser. It uses the committed report artifacts and does not require Python.
+
 Make targets:
 
 ```bash

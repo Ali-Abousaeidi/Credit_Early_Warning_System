@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credit Early-Warning System Dashboard</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #17212b;
+      --muted: #627181;
+      --line: #d9e0e7;
+      --blue: #176d8c;
+      --violet: #8a4f7d;
+      --green: #2d7d5f;
+      --amber: #a46115;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    header {
+      background: #102331;
+      color: #fff;
+      padding: 28px 32px;
+      border-bottom: 4px solid var(--blue);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      letter-spacing: 0;
+    }
+
+    header p {
+      margin: 0;
+      max-width: 980px;
+      color: #d6e2ea;
+      font-size: 15px;
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    section h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    section p {
+      color: var(--muted);
+      margin: 0 0 12px;
+      font-size: 14px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 700;
+      background: #f8fafc;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--blue);
+      white-space: nowrap;
+    }
+
+    .tag.green {
+      background: var(--green);
+    }
+
+    .tag.amber {
+      background: var(--amber);
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .metrics,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      header,
+      main {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Credit Early-Warning System</h1>
+    <p>
+      Static dashboard for the synthetic account-month monitoring project. It summarizes the out-of-time
+      watchlist, lead-time value, model diagnostics, benchmarks, and officer-facing reason codes.
+    </p>
+  </header>
+
+  <main>
+    <div class="metrics">
+      <div class="metric">
+        <span>Median lead time</span>
+        <strong>4.0 mo</strong>
+      </div>
+      <div class="metric">
+        <span>Monthly precision@100</span>
+        <strong>92.00%</strong>
+      </div>
+      <div class="metric">
+        <span>Deteriorating accounts captured</span>
+        <strong>78.68%</strong>
+      </div>
+      <div class="metric">
+        <span>Methodology audit</span>
+        <strong>Pass</strong>
+      </div>
+    </div>
+
+    <section>
+      <h2>Headline Result</h2>
+      <p>
+        The out-of-time test watchlist flags deteriorating accounts a median of 4.0 months before first
+        30+ DPD. At a review capacity of 100 accounts per month, it captures 203 of 258 deteriorating
+        accounts with 92.00% precision.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Test period</th>
+            <th>Rows</th>
+            <th>Positive rows</th>
+            <th>Base rate</th>
+            <th>ROC-AUC</th>
+            <th>PR-AUC</th>
+            <th>Brier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2022-01-31 to 2022-06-30</td>
+            <td>13,440</td>
+            <td>835</td>
+            <td>6.21%</td>
+            <td>0.9597</td>
+            <td>0.8107</td>
+            <td>0.0350</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="grid">
+      <section>
+        <h2>Lead-Time Distribution</h2>
+        <img src="../reports/figures/lead_time.png" alt="Lead time distribution">
+      </section>
+
+      <section>
+        <h2>Capacity Sensitivity</h2>
+        <img src="../reports/figures/capacity_sensitivity.png" alt="Capacity sensitivity">
+      </section>
+
+      <section>
+        <h2>Precision-Recall</h2>
+        <img src="../reports/figures/model_precision_recall.png" alt="Precision recall curve">
+      </section>
+
+      <section>
+        <h2>Calibration Comparison</h2>
+        <img src="../reports/figures/calibration_comparison.png" alt="Calibration comparison">
+      </section>
+
+      <section>
+        <h2>Feature Importance</h2>
+        <img src="../reports/figures/model_feature_importance.png" alt="Global feature importance">
+      </section>
+
+      <section>
+        <h2>Reason-Code Frequency</h2>
+        <img src="../reports/figures/reason_feature_frequency.png" alt="Reason code frequency">
+      </section>
+
+      <section>
+        <h2>Benchmark & Ablation</h2>
+        <p>
+          Balanced logistic regression is the strongest benchmark on this synthetic panel. The trend-only
+          XGBoost ablation preserves most of the full model's PR-AUC, supporting the thesis that behavioural
+          direction and volatility carry the early-warning signal.
+        </p>
+        <img src="../reports/figures/benchmark_ablation_pr_auc.png" alt="Benchmark and ablation comparison">
+      </section>
+
+      <section>
+        <h2>Time-To-Event Add-On</h2>
+        <p>
+          Auxiliary positive-case model: MAE 0.723 months and median absolute error 0.561 months. This is
+          not a full censored survival model, but it extends the fixed-horizon classifier toward timing.
+        </p>
+        <img src="../reports/figures/time_to_event_actual_vs_predicted.png" alt="Time to event predictions">
+      </section>
+
+      <section class="wide">
+        <h2>Top Watchlist Sample With Reason Codes</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Rank</th>
+              <th>Account</th>
+              <th>Probability</th>
+              <th>Hit?</th>
+              <th>Lead time</th>
+              <th>Primary reasons</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2022-01-31</td>
+              <td>1</td>
+              <td>ACC000013</td>
+              <td>1.000</td>
+              <td><span class="tag green">Yes</span></td>
+              <td>1 mo</td>
+              <td>Thin cash buffer; elevated utilisation volatility; weak payment relative to balance.</td>
+            </tr>
+            <tr>
+              <td>2022-01-31</td>
+              <td>2</td>
+              <td>ACC000074</td>
+              <td>1.000</td>
+              <td><span class="tag green">Yes</span></td>
+              <td>2 mo</td>
+              <td>Elevated utilisation volatility; thin cash buffer; recent utilisation increase.</td>
+            </tr>
+            <tr>
+              <td>2022-01-31</td>
+              <td>3</td>
+              <td>ACC000126</td>
+              <td>1.000</td>
+              <td><span class="tag green">Yes</span></td>
+              <td>2 mo</td>
+              <td>Thin cash buffer; elevated utilisation volatility; weak payment relative to balance.</td>
+            </tr>
+            <tr>
+              <td>2022-01-31</td>
+              <td>4</td>
+              <td>ACC000132</td>
+              <td>1.000</td>
+              <td><span class="tag green">Yes</span></td>
+              <td>1 mo</td>
+              <td>Thin cash buffer; elevated utilisation volatility; recent utilisation increase.</td>
+            </tr>
+            <tr>
+              <td>2022-01-31</td>
+              <td>5</td>
+              <td>ACC000150</td>
+              <td>1.000</td>
+              <td><span class="tag green">Yes</span></td>
+              <td>1 mo</td>
+              <td>Thin cash buffer; elevated utilisation volatility; recent utilisation increase.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          Full watchlist with SHAP reason codes is available in
+          <code>reports/tables/watchlist_reason_codes.csv</code>. The dashboard is static and uses committed
+          artifacts only, so it can be opened without running Python.
+        </p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
