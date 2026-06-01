@@ -1,0 +1,4 @@
+calibration_method,brier_score,log_loss,expected_calibration_error,mean_predicted_probability,observed_rate
+raw_xgboost,0.1248,0.3832,0.2331,0.2952,0.0621
+isotonic,0.035,0.1425,0.0547,0.1169,0.0621
+platt,0.0445,0.1483,0.0703,0.1276,0.0621

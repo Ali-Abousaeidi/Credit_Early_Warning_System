@@ -1,0 +1,26 @@
+[
+  {
+    "calibration_method": "raw_xgboost",
+    "brier_score": 0.1248,
+    "log_loss": 0.3832,
+    "expected_calibration_error": 0.2331,
+    "mean_predicted_probability": 0.2952,
+    "observed_rate": 0.0621
+  },
+  {
+    "calibration_method": "isotonic",
+    "brier_score": 0.035,
+    "log_loss": 0.1425,
+    "expected_calibration_error": 0.0547,
+    "mean_predicted_probability": 0.1169,
+    "observed_rate": 0.0621
+  },
+  {
+    "calibration_method": "platt",
+    "brier_score": 0.0445,
+    "log_loss": 0.1483,
+    "expected_calibration_error": 0.0703,
+    "mean_predicted_probability": 0.1276,
+    "observed_rate": 0.0621
+  }
+]

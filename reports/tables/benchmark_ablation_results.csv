@@ -1,0 +1,8 @@
+experiment,model,feature_set,roc_auc,pr_auc,brier_score,n_features
+benchmark,logistic_regression_balanced,full,0.962,0.8616,0.0627,
+benchmark,random_forest_balanced,full,0.9596,0.8313,0.1072,
+benchmark,xgboost,full,0.9608,0.8389,0.1302,
+benchmark,transparent_rule_score,four_behavioural_rules,0.8,0.4248,0.2541,
+ablation,xgboost,full,0.9608,0.8389,0.1302,70.0
+ablation,xgboost,level_only,0.938,0.7802,0.1817,37.0
+ablation,xgboost,trend_only,0.9578,0.8314,0.1537,33.0

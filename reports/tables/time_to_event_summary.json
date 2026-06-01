@@ -1,0 +1,9 @@
+{
+  "train_positive_rows": 1723,
+  "test_positive_rows": 835,
+  "mean_absolute_error_months": 0.723,
+  "median_absolute_error_months": 0.561,
+  "prediction_mean_months": 2.812,
+  "actual_mean_months": 3.286,
+  "note": "This is an auxiliary positive-case time-to-event model, not a full censored survival model."
+}

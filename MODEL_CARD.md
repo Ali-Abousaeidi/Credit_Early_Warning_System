@@ -44,6 +44,33 @@ Out-of-time test metrics:
 - Log loss: `0.1450`
 - Test base rate: `6.21%`
 
+Calibration comparison on the out-of-time test split:
+
+- Raw XGBoost Brier: `0.1248`, ECE: `0.2331`
+- Isotonic Brier: `0.0350`, ECE: `0.0547`
+- Platt Brier: `0.0445`, ECE: `0.0703`
+
+Interpretation: calibration materially improves the raw boosted scores, but even the best calibrated score still overpredicts average event frequency. The score is therefore best treated as a review-ranking signal, not a governed PD.
+
+## Benchmarks and Ablation
+
+Additional experiments compare the production-style tree model against simpler baselines and feature subsets.
+
+Benchmark PR-AUC:
+
+- Balanced logistic regression: `0.8616`
+- XGBoost benchmark: `0.8389`
+- Random forest: see `reports/tables/benchmark_ablation_results.csv`
+- Transparent rule score: see `reports/tables/benchmark_ablation_results.csv`
+
+Ablation PR-AUC:
+
+- Full feature set: `0.8389`
+- Level-only features: `0.7802`
+- Trend-only features: `0.8314`
+
+Interpretation: trend features carry most of the signal, which supports the project thesis that deterioration is better captured through direction and momentum than static levels alone. The transparent logistic benchmark is strong on this synthetic dataset, so it should be treated as a serious challenger model rather than dismissed.
+
 ## Watchlist Use
 
 The model is used to rank currently-performing accounts for review. At top `100` accounts per month in the out-of-time test period:
@@ -51,6 +78,15 @@ The model is used to rank currently-performing accounts for review. At top `100`
 - Monthly precision@100: `92.00%`
 - Account capture rate: `78.68%`
 - Median lead time: `4.0` months
+
+Capacity sensitivity is reported in `reports/tables/capacity_sensitivity.csv`.
+
+## Time-to-Event Add-On
+
+An auxiliary positive-case model estimates months to deterioration for accounts already labelled as deteriorating within the six-month horizon. This is not a full censored survival model, but it demonstrates the time-to-event extension:
+
+- Mean absolute error: `0.723` months
+- Median absolute error: `0.561` months
 
 ## IFRS 9 / SICR Framing
 

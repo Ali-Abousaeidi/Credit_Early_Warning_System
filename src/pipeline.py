@@ -11,9 +11,12 @@ PIPELINE_MODULES = [
     "src.target",
     "src.features",
     "src.model",
+    "src.calibration",
     "src.staging",
     "src.watchlist",
     "src.explain",
+    "src.experiments",
+    "src.time_to_event",
     "src.audit",
 ]
 

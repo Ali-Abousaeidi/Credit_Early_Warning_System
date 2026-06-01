@@ -12,6 +12,7 @@ Flags deteriorating accounts a median of `4.0` months before they hit `30+ DPD`,
 
 - [DATA_CARD.md](DATA_CARD.md): synthetic data generation, timing convention, and limitations.
 - [MODEL_CARD.md](MODEL_CARD.md): target, features, validation, watchlist use, and caveats.
+- [INTERVIEW_NOTES.md](INTERVIEW_NOTES.md): concise explanations for defending the project.
 - `reports/tables/methodology_audit.json`: automated checks for timing-wall and reproducibility risks.
 - `reports/figures/model_feature_importance.png`: global model drivers by XGBoost gain.
 
@@ -160,6 +161,20 @@ The ranking performance is strong because the synthetic data intentionally embed
 
 ![Model feature importance](reports/figures/model_feature_importance.png)
 
+Calibration comparison:
+
+```bash
+python -m src.calibration
+```
+
+Latest out-of-time comparison:
+
+- Raw XGBoost Brier: `0.1248`, ECE: `0.2331`
+- Isotonic Brier: `0.0350`, ECE: `0.0547`
+- Platt Brier: `0.0445`, ECE: `0.0703`
+
+![Calibration comparison](reports/figures/calibration_comparison.png)
+
 ## IFRS 9 / SICR Framing
 
 Phase 6 maps the model output into a simplified Stage 2 review signal:
@@ -230,6 +245,52 @@ The reason-code table is written to `reports/tables/watchlist_reason_codes.csv`.
 
 ![Reason feature frequency](reports/figures/reason_feature_frequency.png)
 
+## Benchmarks, Ablation & Capacity
+
+The experiment layer runs:
+
+```bash
+python -m src.experiments
+```
+
+Latest benchmark and ablation summary:
+
+- Best benchmark PR-AUC: balanced logistic regression, `0.8616`
+- XGBoost full-feature ablation PR-AUC: `0.8389`
+- Level-only XGBoost PR-AUC: `0.7802`
+- Trend-only XGBoost PR-AUC: `0.8314`
+
+Interpretation: trend features retain most of the predictive signal, supporting the central thesis that behavioural direction and volatility matter more than static levels alone. The strong logistic benchmark is documented honestly as a challenger model.
+
+Capacity sensitivity:
+
+- Top 25/month: precision `98.67%`, account capture `21.71%`
+- Top 50/month: precision `98.33%`, account capture `46.51%`
+- Top 100/month: precision `92.00%`, account capture `78.68%`
+- Top 150/month: precision `72.56%`, account capture `86.82%`
+- Top 200/month: precision `58.00%`, account capture `89.92%`
+
+![Benchmark ablation](reports/figures/benchmark_ablation_pr_auc.png)
+
+![Capacity sensitivity](reports/figures/capacity_sensitivity.png)
+
+## Time-To-Event Add-On
+
+The auxiliary positive-case time-to-event model runs:
+
+```bash
+python -m src.time_to_event
+```
+
+Latest result:
+
+- Mean absolute error: `0.723` months
+- Median absolute error: `0.561` months
+
+This is not a full censored survival model; it is a practical add-on showing how the fixed-horizon classifier can be extended toward time-to-deterioration.
+
+![Time to event](reports/figures/time_to_event_actual_vs_predicted.png)
+
 ## Methodology Audit
 
 The final pipeline step runs:
@@ -265,10 +326,28 @@ python -m src.eda
 python -m src.target
 python -m src.features
 python -m src.model
+python -m src.calibration
 python -m src.staging
 python -m src.watchlist
 python -m src.explain
+python -m src.experiments
+python -m src.time_to_event
 python -m src.audit
+```
+
+Dashboard:
+
+```bash
+streamlit run dashboard/app.py
+```
+
+Make targets:
+
+```bash
+make install
+make test
+make run
+make audit
 ```
 
 Run tests:

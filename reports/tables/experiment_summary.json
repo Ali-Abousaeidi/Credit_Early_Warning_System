@@ -1,0 +1,54 @@
+{
+  "best_pr_auc_model": {
+    "model": "logistic_regression_balanced",
+    "feature_set": "full",
+    "pr_auc": 0.8616
+  },
+  "ablation_pr_auc": {
+    "full": 0.8389,
+    "level_only": 0.7802,
+    "trend_only": 0.8314
+  },
+  "capacity_rows": [
+    {
+      "top_k_per_month": 25,
+      "watchlist_rows": 150,
+      "precision_at_k": 0.9867,
+      "account_capture_rate": 0.2171,
+      "median_lead_time_months": 4.0,
+      "mean_lead_time_months": 3.38
+    },
+    {
+      "top_k_per_month": 50,
+      "watchlist_rows": 300,
+      "precision_at_k": 0.9833,
+      "account_capture_rate": 0.4651,
+      "median_lead_time_months": 3.0,
+      "mean_lead_time_months": 3.09
+    },
+    {
+      "top_k_per_month": 100,
+      "watchlist_rows": 600,
+      "precision_at_k": 0.92,
+      "account_capture_rate": 0.7868,
+      "median_lead_time_months": 4.0,
+      "mean_lead_time_months": 3.48
+    },
+    {
+      "top_k_per_month": 150,
+      "watchlist_rows": 900,
+      "precision_at_k": 0.7256,
+      "account_capture_rate": 0.8682,
+      "median_lead_time_months": 4.0,
+      "mean_lead_time_months": 3.65
+    },
+    {
+      "top_k_per_month": 200,
+      "watchlist_rows": 1200,
+      "precision_at_k": 0.58,
+      "account_capture_rate": 0.8992,
+      "median_lead_time_months": 4.0,
+      "mean_lead_time_months": 3.76
+    }
+  ]
+}

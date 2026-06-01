@@ -22,6 +22,21 @@ Generated status mix:
 - `355` 90 DPD rows
 - `3,947` default rows
 
+## Generative Process
+
+```mermaid
+flowchart LR
+  A["Latent borrower risk"] --> D["Monthly stress state"]
+  B["Origination attributes"] --> D
+  C["Macro stress path"] --> D
+  D --> E["Behavioural signals at month t"]
+  E --> F["Utilisation, payments, cash buffer, activity"]
+  D --> G["Delinquency transition state"]
+  G --> H["current / 30 DPD / 60 DPD / 90 DPD / default"]
+```
+
+The generator embeds pre-delinquency pressure before some first `30+ DPD` events. That pressure affects contemporaneous behavioural signals such as utilisation, payment coverage, and cash buffer. The hidden simulated event month is not written to the panel.
+
 ## Timing Discipline
 
 The raw panel does not expose hidden simulation event dates. Target construction happens later by looking forward from each account-month row.
