@@ -12,7 +12,6 @@ Flags deteriorating accounts a median of `4.0` months before they hit `30+ DPD`,
 
 - [DATA_CARD.md](DATA_CARD.md): synthetic data generation, timing convention, and limitations.
 - [MODEL_CARD.md](MODEL_CARD.md): target, features, validation, watchlist use, and caveats.
-- [INTERVIEW_NOTES.md](INTERVIEW_NOTES.md): concise explanations for defending the project.
 - `reports/tables/methodology_audit.json`: automated checks for timing-wall and reproducibility risks.
 - `reports/figures/model_feature_importance.png`: global model drivers by XGBoost gain.
 

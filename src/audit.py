@@ -1,8 +1,8 @@
 """Methodology and reproducibility audit checks.
 
-The audit is deliberately lightweight and transparent. It checks the risks an
-interviewer is most likely to probe: hidden future columns, feature/target
-leakage, time-split ordering, complete target windows, and watchlist capacity.
+The audit is deliberately lightweight and transparent. It checks key
+methodological risks: hidden future columns, feature/target leakage, time-split
+ordering, complete target windows, and watchlist capacity.
 """
 
 from __future__ import annotations
